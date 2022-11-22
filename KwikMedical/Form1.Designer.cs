@@ -132,9 +132,9 @@
             this.NameLabel.AutoSize = true;
             this.NameLabel.Location = new System.Drawing.Point(195, 252);
             this.NameLabel.Name = "NameLabel";
-            this.NameLabel.Size = new System.Drawing.Size(89, 15);
+            this.NameLabel.Size = new System.Drawing.Size(94, 15);
             this.NameLabel.TabIndex = 10;
-            this.NameLabel.Text = "Employee login";
+            this.NameLabel.Text = "Employee Name";
             this.NameLabel.Visible = false;
             // 
             // AuthIDTB
@@ -171,6 +171,7 @@
             this.Controls.Add(this.PasswordTB);
             this.Controls.Add(this.LoginTB);
             this.Name = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);

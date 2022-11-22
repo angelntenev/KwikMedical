@@ -5,10 +5,15 @@ using FireSharp;
 using System.CodeDom.Compiler;
 using Microsoft.VisualBasic;
 
+
 namespace KwikMedical
 {
+    
     public partial class Form1 : Form
     {
+        public string loginName { get; set; }
+
+
         public Form1()
         {
             InitializeComponent();
@@ -39,24 +44,40 @@ namespace KwikMedical
         {
             if (LoginRB.Checked == true)
             {
-                //Get employee data
+                //Login checker
                 var result = client.Get("MedicalEmployees/" + LoginTB.Text);
                 MedicalEmployee medEmpl = result.ResultAs<MedicalEmployee>();
-                
-                if (PasswordHasher.hashPassword(PasswordTB.Text).Equals(medEmpl.getEmployeePswd()))
+
+                if (medEmpl != null)
                 {
-                    MessageBox.Show("Hello, " + medEmpl.getEmployeeName());
+                    if (PasswordHasher.hashPassword(PasswordTB.Text).Equals(medEmpl.getEmployeePswd()))
+                    {
+                        WorkingForm workingForm = new WorkingForm();
+                        workingForm.workingEmployeeLogin = medEmpl.getEmployeeLogin();
+                        workingForm.Show();
+                        this.Hide();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Incorrect details entered");
+                    }
                 }
             }
-
+            
             if (RegisterRB.Checked == true)
             {
+                //Registering new Medical Employee
                 MedicalEmployee medEmpl = new MedicalEmployee();
-                medEmpl.setEmployeeLogin(LoginTB.Text);
-                medEmpl.setEmployeePswd(PasswordTB.Text);
-                medEmpl.setEmployeeName(EmployeeNameTB.Text);
+                if (LoginTB.Text != "" && PasswordTB.Text != "" && EmployeeNameTB.Text != "")
+                {
+                    medEmpl.setEmployeeLogin(LoginTB.Text);
+                    medEmpl.setEmployeePswd(PasswordTB.Text);
+                    medEmpl.setEmployeeName(EmployeeNameTB.Text);
+                    var setter = client.Set("MedicalEmployees/" + medEmpl.getEmployeeLogin(), medEmpl);
+                }
+                else { MessageBox.Show("Please fill out all fields"); }
 
-                var setter = client.Set("MedicalEmployees/" + medEmpl.getEmployeeLogin(), medEmpl);
+
             }
 
         }
