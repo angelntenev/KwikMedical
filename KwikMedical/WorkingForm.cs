@@ -29,8 +29,8 @@ namespace KwikMedical
 
         IFirebaseConfig ifc = new FirebaseConfig()
         {
-            AuthSecret = "QwDErdtansn405XGCuje5ZuhYNUDkdiFEKGviQeV",
-            BasePath = "https://kwikmedical-64d6e-default-rtdb.europe-west1.firebasedatabase.app/"
+            AuthSecret = "",
+            BasePath = ""
         };
 
         private void WorkingForm_Load(object sender, EventArgs e)
